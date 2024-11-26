@@ -8,28 +8,30 @@ CXX = g++
 CC  = gcc
 
 # define any compile-time flags
-CXXFLAGS:= -std=c++17 -Wall -Wextra  
+CXXFLAGS:= -std=c++17 -Wall -Wextra
 
-CFLAGS  := -std=c99 
+CFLAGS  := -std=c99 -Wall 
+
 # define library paths in addition to /usr/lib
 #   if I wanted to include libraries not in /usr/lib I'd specify
 #   their path using -Lpath, something like:
 
-LFLAGS = -lopengl32 -lglfw3 src/glad.o
+LFLAGS = -lopengl32 -lglfw3#src/glad.o
 
 # define output directory
 OUTPUT	:= output
 
 # define source directory
-SRC		:= src 
+SRC		:= src
 
 # define include directory
-INCLUDE	:= include/ThirdParty include\ThirdParty\glad
+INCLUDE	:= include/ThirdParty 
 
 # define lib directory
-LIB		:= lib/GLFW 
+LIB		:= lib/GLFW
 
 # DEFINE THE PATHs TO FOLDERS AND NAME OF THE APP 
+
 #For windows 
 ifeq ($(OS),Windows_NT)
 MAIN	:= Game_OpenGL.exe
@@ -41,7 +43,6 @@ RM			:= del /q /f
 MD	:= mkdir
 
 else
-
 #For non-windows
 MAIN	:= Game_OpenGL
 SOURCEDIRS	:= $(shell find $(SRC) -type d)
@@ -60,10 +61,12 @@ LIBS		:= $(patsubst %,-L%, $(LIBDIRS:%/=%))
 
 # define the C source files
 SOURCES		:= $(wildcard $(patsubst %,%/*.cpp, $(SOURCEDIRS)))
+CSOURCES	:= $(wildcard $(patsubst %,%/*.c, $(SOURCEDIRS)))
 
-# define the C object files
+# define the C++ object files
 OBJECTS		:= $(SOURCES:.cpp=.o)
-
+# define the C objects files
+COBJECTS    := $(CSOURCES:.c=.o)
 # define the dependency output files
 DEPS		:= $(OBJECTS:.o=.d)
 
@@ -82,7 +85,8 @@ $(OUTPUT):
 	$(MD) $(OUTPUT)
 
 $(MAIN): $(OBJECTS)
-	$(CXX) $(CXXFLAGS) $(INCLUDES) -o $(OUTPUTMAIN) $(OBJECTS) $(LIBS) $(LFLAGS)
+	$(CC) $(CFLAGS) $(INCLUDES) -c $(CSOURCES) -o $(COBJECTS) 
+	$(CXX) $(CXXFLAGS) $(INCLUDES) -o $(OUTPUTMAIN) $(OBJECTS) $(COBJECTS) $(LIBS) $(LFLAGS)
 
 # include all .d files
 -include $(DEPS)
@@ -92,13 +96,14 @@ $(MAIN): $(OBJECTS)
 # the rule(a .c file) and $@: the name of the target of the rule (a .o file)
 # -MMD generates dependency output files same name as the .o file
 # (see the gnu make manual section about automatic variables)
-.cpp.o:
-	$(CXX) $(CXXFLAGS) $(INCLUDES) -c -MMD $<  -o $@
+.cpp.o:    
+	$(CXX) $(CXXFLAGS) $(INCLUDES) -c -MMD $< -o $@
 
 .PHONY: clean
-clean:
+clean: 
 	$(RM) $(OUTPUTMAIN)
 	$(RM) $(call FIXPATH,$(OBJECTS))
+	$(RM) $(call FIXPATH,$(COBJECTS))
 	$(RM) $(call FIXPATH,$(DEPS))
 	@echo Cleanup complete!
 
