@@ -8,7 +8,7 @@ CXX = g++
 CC  = gcc
 
 # define any compile-time flags
-CXXFLAGS:= -std=c++17 -Wall -Wextra
+CXXFLAGS:= -std=c++17 -Wall -Wextra -g
 
 CFLAGS  := -std=c99 -Wall 
 

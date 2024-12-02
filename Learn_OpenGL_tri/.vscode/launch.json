@@ -1,0 +1,32 @@
+{
+  "configurations": [
+      {
+          "name": "C++ GDB Debugger",
+          "type": "cppdbg",
+          "request": "launch",
+          "program": "${workspaceFolder}/output/Game_OpenGL.exe",
+          "args": [],
+          "stopAtEntry": false,
+          //"cwd": "${fileDirname}",
+          "cwd": "${workspaceFolder}",
+          "environment": [],
+          "externalConsole": true,
+          "MIMode": "gdb",
+          "miDebuggerPath": "E:/mingw64/bin/gdb.exe",
+          "setupCommands": [
+              {
+                  "description": "Enable pretty-printing for gdb",
+                  "text": "-enable-pretty-printing",
+                  "ignoreFailures": true
+              }
+              //{
+              //    "description": "Set Disassembly Flavor to Intel",
+              //    "text": "-gdb-set disassembly-flavor intel",
+              //    "ignoreFailures": true
+              //}
+          ]
+    //"preLaunchTask": "C/C++: g++.exe Debug build"
+      }
+  ],
+  "version": "2.0.0"
+}

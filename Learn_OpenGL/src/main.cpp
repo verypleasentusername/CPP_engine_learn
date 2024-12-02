@@ -4,25 +4,30 @@
 Дело в том что статически линковать ебаный .dll нельзя, и надо использовать .a или .o
 
 Далее по списку -- 
-(готово)-----1)  надо сделать нормальный цикл рендера
-2)  подрубить GLAD для того что бы получать готовые адреса вызовов функций OpenGL
+(готово)---------1)  надо сделать нормальный цикл рендера
+(готово(криво))--2)  подрубить GLAD для того что бы получать готовые адреса вызовов функций OpenGL
 3)  ну и делать дальше игру мечты ёпта :^D 
 */
 #include <iostream>
-
+using std::cout;
 #include "../include/ThirdParty/glad/glad.h"
 #include "../include/ThirdParty/GLFW/glfw3.h"
 
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
-
-using std::cout;
-
 void processInput(GLFWwindow *window);
 
 // settings
 const unsigned int SCR_WIDTH = 800;
 const unsigned int SCR_HEIGHT = 600;
+
+//rendering
+
+float vertices[] = {
+    -0.5f, -0.5f, 0.0f,
+    0.5f, -0.5f, 0.0f,
+    0.0f, 0.5f,  0.0f
+};  
 
 int main()
 {
@@ -61,13 +66,13 @@ int main()
     // -----------
     while (!glfwWindowShouldClose(window))
     {
-        // input
+        // input (escape -- closing the window)
         // -----
         processInput(window);
 
         // render
         // ------
-        glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+        glClearColor(0.2f, 0.2f, 0.6f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
