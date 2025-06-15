@@ -16,7 +16,7 @@ CFLAGS  := -std=c99 -Wall
 #   if I wanted to include libraries not in /usr/lib I'd specify
 #   their path using -Lpath, something like:
 
-LFLAGS = -lopengl32 -lglfw3#src/glad.o
+LFLAGS = -lopengl32 -lglfw3 #src/glad.o
 
 # define output directory
 OUTPUT	:= output
@@ -25,7 +25,7 @@ OUTPUT	:= output
 SRC		:= src src/util
 
 # define include directory
-INCLUDE	:= include/ThirdParty src/util
+INCLUDE	:= include/ThirdParty src/utils	
 
 # define lib directory
 LIB		:= lib/GLFW

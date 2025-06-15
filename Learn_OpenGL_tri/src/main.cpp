@@ -20,15 +20,13 @@ Ctrl+shift+B ---- building / сборка программы
 #include "../include/ThirdParty/GLFW/glfw3.h"
 #include "utils/Shader_util.h"
 
-#include "main.h"
-
 #include <iostream>
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow *window);
 
 // settings
-const unsigned int SCR_WIDTH = 600;
+const unsigned int SCR_WIDTH = 800;
 const unsigned int SCR_HEIGHT = 600;
 
 int main()
@@ -66,16 +64,15 @@ int main()
 
     // build and compile our shader program
     // ------------------------------------
-    Shader ourShader("C:/Users/222/CPP/Learn_OpenGL_tri/Shaders/3.3.shader.vs", "C:/Users/222/CPP/Learn_OpenGL_tri/Shaders/3.3.shader.fs"); // you can name your shader files however you like
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_MIRRORED_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_MIRRORED_REPEAT);
+    Shader ourShader("3.3.shader.vs", "3.3.shader.fs"); // you can name your shader files however you like
+
     // set up vertex data (and buffer(s)) and configure vertex attributes
     // ------------------------------------------------------------------
     float vertices[] = {
-        // positions                     // colors
+        // positions         // colors
          0.5f, -0.5f, 0.0f,  1.0f, 0.0f, 0.0f,  // bottom right
-        -0.5f, -0.5f, 0.0f,  0.0f, 1.0f,0.0f,  // bottom left
-         0.0f,0.5f,0.0f,  0.0f,0.0f,1.0f   // top 
+        -0.5f, -0.5f, 0.0f,  0.0f, 1.0f, 0.0f,  // bottom left
+         0.0f,  0.5f, 0.0f,  0.0f, 0.0f, 1.0f   // top 
     };
 
     unsigned int VBO, VAO;
@@ -119,9 +116,8 @@ int main()
 
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
         // -------------------------------------------------------------------------------
-        glfwPollEvents();
         glfwSwapBuffers(window);
-        
+        glfwPollEvents();
     }
 
     // optional: de-allocate all resources once they've outlived their purpose:
@@ -141,12 +137,6 @@ void processInput(GLFWwindow *window)
 {
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
         glfwSetWindowShouldClose(window, true);
-
-        //giazmo draw mode change
-    if (glfwGetKey(window, GLFW_KEY_C) == GLFW_PRESS)
-        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-    if (glfwGetKey(window, GLFW_KEY_V) == GLFW_PRESS)
-        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 }
 
 // glfw: whenever the window size changed (by OS or user resize) this callback function executes
