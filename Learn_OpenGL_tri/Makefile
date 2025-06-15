@@ -22,10 +22,10 @@ LFLAGS = -lopengl32 -lglfw3#src/glad.o
 OUTPUT	:= output
 
 # define source directory
-SRC		:= src
+SRC		:= src src/util
 
 # define include directory
-INCLUDE	:= include/ThirdParty 
+INCLUDE	:= include/ThirdParty src/util
 
 # define lib directory
 LIB		:= lib/GLFW
